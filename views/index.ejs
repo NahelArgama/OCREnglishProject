@@ -21,13 +21,19 @@
      <div class="mx-auto" style="width:50vw; text-align:center; margin-top: 20px">
        <img src="/img/1.jpg" class='img-fluid' style='cursor:pointer' id='openimg'>
         <div class="custom-file">
-            <input type="file" id="choose" style='display:none'>
+            <form action="/upload" method="post" enctype="multipart/form-data" id="frmUpload">
+                <input type="file" id="choose" name="choose" style='display:none' accept="image/*">
+            </form>
         </div>
     </div>
 </main>
 <script>
     document.getElementById('openimg').addEventListener('click',function(){
         document.getElementById('choose').click();
+    });
+
+    document.getElementById('choose').addEventListener('change', function(){
+        document.getElementById('frmUpload').submit();
     });
 </script>
   
