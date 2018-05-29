@@ -6,6 +6,8 @@ const randomstring = require('randomstring');
 const path = require('path');
 const ocrApi = require('./ocr_api');
 
+const translate = require('./translate');
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -38,7 +40,14 @@ app.post('/upload', (req, res) => {
             return res.status(500).send(err);
 
         ocrApi.getTextFromImage(imgPath).then((text) => {
-            res.send(text);
+            translate.translate(text).then((str) => {
+                res.send(text + str);
+            }).catch((err) => {
+                console.error('ERROR:', err);
+                res.send('failed to detect.');
+            });
+
+            ``
         }).catch((err) => {
             console.error('ERROR:', err);
             res.send('failed to detect.');

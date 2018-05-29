@@ -1,13 +1,20 @@
 {
-  "name": "appproject",
-  "version": "0.1",
-  "description": "",
+  "name": "source",
+  "version": "1.0.0",
+  "description": "* Project Table of Contents",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NahelArgama/OCREnglishProject.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NahelArgama/OCREnglishProject/issues"
+  },
   "dependencies": {
     "@google-cloud/vision": "^0.19.0",
     "body-parser": "^1.18.3",
@@ -15,5 +22,6 @@
     "express": "^4.16.3",
     "express-fileupload": "^0.4.0",
     "randomstring": "^1.1.5"
-  }
+  },
+  "homepage": "https://github.com/NahelArgama/OCREnglishProject#readme"
 }
