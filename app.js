@@ -40,6 +40,33 @@ app.post('/upload', (req, res) => {
             return res.status(500).send(err);
 
         ocrApi.getTextFromImage(imgPath).then((text) => {
+            let quiz = {};
+            console.log(text);
+            let words = text.split();
+            let cnt = 0;
+            let length = words.length;
+
+            for(let i = 0;i < words.length; i++){
+                words[i] = words[i].replace('\\', '');
+                if(words[i].length <= 0){
+                    length -= 1;
+                    continue;
+                }
+                console.log("word", words[i]);
+                translate.translate(words[i]).then((rst) => {
+                    rst = JSON.parse(rst);
+                    console.log("korean", rst.message.result.translatedText);
+                    quiz[words[i]] = rst;
+                    cnt++;
+
+                    if(words[i].length === cnt){
+                        res.json(quiz);
+                    }
+                }).catch((err) => {
+                    console.error('ERROR', err);
+                    length -= 1;
+                });
+            }
             translate.translate(text).then((str) => {
                 res.send(text + str);
             }).catch((err) => {
