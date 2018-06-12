@@ -41,25 +41,28 @@ app.post('/upload', (req, res) => {
 
         ocrApi.getTextFromImage(imgPath).then((text) => {
             let quiz = {};
-            console.log(text);
-            let words = text.split();
+            console.log('type@@@@@@@@@@@@@:',typeof text);
+            let words = text.split(/[' \n']/g);
             let cnt = 0;
             let length = words.length;
-
+            
             for(let i = 0;i < words.length; i++){
                 words[i] = words[i].replace('\\', '');
+             
                 if(words[i].length <= 0){
                     length -= 1;
                     continue;
                 }
-                console.log("word", words[i]);
+             
                 translate.translate(words[i]).then((rst) => {
                     rst = JSON.parse(rst);
-                    console.log("korean", rst.message.result.translatedText);
-                    quiz[words[i]] = rst;
+                    quiz[words[i]] = rst.message.result.translatedText;
                     cnt++;
+                    console.log(cnt);
+                    console.log('Checkpoint #0');
 
-                    if(words[i].length === cnt){
+                    if(length === cnt){
+                        console.log('Checkpoint #1');
                         res.json(quiz);
                     }
                 }).catch((err) => {
@@ -67,14 +70,6 @@ app.post('/upload', (req, res) => {
                     length -= 1;
                 });
             }
-            translate.translate(text).then((str) => {
-                res.send(text + str);
-            }).catch((err) => {
-                console.error('ERROR:', err);
-                res.send('failed to detect.');
-            });
-
-            ``
         }).catch((err) => {
             console.error('ERROR:', err);
             res.send('failed to detect.');
