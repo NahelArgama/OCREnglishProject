@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+
+  <title>OCR-based English Quiz System</title>
+
+  <style>
+    body {
+      background-color: lightgrey;
+    }
+
+    #screen_one {
+      margin-top: 30px;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    #btn_upload {
+      width: 80vw;
+      margin-top: 10px;
+    }
+
+    .w90 {
+      width: 90vw;
+      margin-top: 10px;
+    }
+    .btn-n{
+      width: 90vw;
+      margin-top: 20px;
+    }
+  </style>
+  <!-- 여기가 주석  -->
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-secondary">
+    <span class="navbar-brand mb-0 h1">OCR-based English Quiz System</span>
+  </nav>
+  <div id="screen_one">
+    <div class="mx-auto text-center">
+      <img src="img/logo.jpg" class="img-fluid">
+      <br>
+      <button type="button" id="btn_upload" class="btn btn-dark">Upload a image</button>
+      <input type="file" id="open_file" class="hide" />
+    </div>
+  </div>
+  <div id="screen_two" class="hide">
+    <div class="mx-auto text-center">
+      <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title">Q1.question</h5>
+          <p class="card-text">문제.정원호는 왜 성격이 급한가</p>
+          <a href="#" class="btn btn-primary btn-n">Go somewhere</a><br>
+          <a href="#" class="btn btn-primary btn-n">Go somewhere</a><br>
+          <a href="#" class="btn btn-primary btn-n">Go somewhere</a><br>
+          <a href="#" class="btn btn-primary btn-n">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script>
+      document.getElementById("btn_upload").addEventListener("click", () => {
+        open_file.click();
+      });
+
+      document.getElementById("open_file").addEventListener("change", (e) => {
+        // 06 12 여기 작업중! 
+        console.log('e:', e);
+        let that = document.getElementById("open_file");
+        console.log('files:', that.files);
+      });
+    /*
+      메모
+    var fileInput = document.getElementById("upload_file");
+
+      var file = fileInput.files[0];
+
+      var formData = new FormData();
+
+      formData.append("upload_file" , file);
+
+
+
+      var xhr = new XMLHttpRequest();
+
+      xhr.open("POST" , "/upload/request_url" , true);
+
+      xhr.send(formData);
+
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("demo").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "ajax_info.txt", true);
+      xhttp.send();
+    */
+      
+    </script>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+      crossorigin="anonymous"></script>
+</body>
+
+</html>

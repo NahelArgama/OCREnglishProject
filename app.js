@@ -17,9 +17,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(fileUpload());
 
+// Test Page
 app.get('/', (req, res) => {
     res.render('index');
 });
+
+
+// Quiz Page
+app.get('/quiz', (req, res) => {
+    res.render('quiz');
+});
+
 
 app.post('/upload', (req, res) => {
     if (!req.files || !req.files['choose'])
