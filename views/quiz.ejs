@@ -58,27 +58,86 @@
     <div class="mx-auto text-center">
       <div class="card" >
         <div class="card-body">
-          <h5 class="card-title">Q1.question</h5>
-          <p class="card-text">문제.정원호는 왜 성격이 급한가</p>
-          <a href="#" class="btn btn-primary btn-n">Go somewhere</a><br>
-          <a href="#" class="btn btn-primary btn-n">Go somewhere</a><br>
-          <a href="#" class="btn btn-primary btn-n">Go somewhere</a><br>
-          <a href="#" class="btn btn-primary btn-n">Go somewhere</a>
+          <h5 class="card-title" id="title">Q1.question</h5>
+          <p class="card-text" id="question">문제.정원호는 왜 성격이 급한가</p>
+          <a href="#" class="btn btn-primary btn-n" id="option1">그러게요</a><br>
+          <a href="#" class="btn btn-primary btn-n" id="option2">왜 그럴까요</a><br>
+          <a href="#" class="btn btn-primary btn-n" id="option3">내가 알면 지금 이러고 있을까요</a><br>
+          <a href="#" class="btn btn-primary btn-n" id="option4">안똑똑해서그래</a>
         </div>
       </div>
     </div>
   </div>
 
     <script>
+      let quiz;
+      let currentIdx = -1;
+
+      let options = document.getElementsByClassName("btn-n");
+      let win = 0;
+
+      for (let i = 0; i < options.length; i++) {
+        options[i].addEventListener("click", () => {
+          if (!quiz)
+            return;
+          if (quiz[currentIdx][1] === options[i].innerText) {
+            win+=1;
+          }
+
+          if (currentIdx < (quiz.length - 1)) {
+            nextquestion();
+          } else {
+            alert(win);
+          }
+        });
+      }
+
+      const nextquestion = () => {
+        currentIdx++;
+        document.getElementById("title").innerText = "Q" + (currentIdx+1) + ".Question";
+        document.getElementById("question").innerText = quiz[currentIdx][0] + " 의 뜻은?" ;
+
+        let options = document.getElementsByClassName("btn-n");
+        
+        for (let i = 0; i < options.length; i++ ){
+          let ri = Math.floor(Math.random() * quiz.length);
+          options[i].innerText = quiz[ri][1];
+        }
+        let ri = Math.floor(Math.random() * 4);
+        options[ri].innerText = quiz[currentIdx][1];
+        
+      };
+
       document.getElementById("btn_upload").addEventListener("click", () => {
         open_file.click();
       });
 
       document.getElementById("open_file").addEventListener("change", (e) => {
-        // 06 12 여기 작업중! 
-        console.log('e:', e);
         let that = document.getElementById("open_file");
-        console.log('files:', that.files);
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            let result = JSON.parse(this.responseText);
+            quiz = new Array();
+            for(let r in result) {
+              question = new Array();
+              question.push(r);
+              question.push(result[r]);
+              quiz.push(question);
+            }
+            win = 0;
+            document.getElementById("screen_one").setAttribute("class","hide"); 
+            document.getElementById("screen_two").setAttribute("class",""); 
+            nextquestion();
+          }
+        };
+        var formData = new FormData();
+
+        formData.append("choose" , that.files[0]);
+        xhr.open("POST" , "/upload" , true);
+        xhr.send(formData);
       });
     /*
       메모
