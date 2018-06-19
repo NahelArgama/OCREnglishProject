@@ -49,7 +49,6 @@ app.post('/upload', (req, res) => {
 
         ocrApi.getTextFromImage(imgPath).then((text) => {
             let quiz = {};
-            console.log('type@@@@@@@@@@@@@:',typeof text);
             let words = text.split(/[' \n']/g);
             let cnt = 0;
             let length = words.length;
@@ -66,11 +65,8 @@ app.post('/upload', (req, res) => {
                     rst = JSON.parse(rst);
                     quiz[words[i]] = rst.message.result.translatedText;
                     cnt++;
-                    console.log(cnt);
-                    console.log('Checkpoint #0');
 
                     if(length === cnt){
-                        console.log('Checkpoint #1');
                         res.json(quiz);
                     }
                 }).catch((err) => {
