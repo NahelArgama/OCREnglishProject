@@ -17,12 +17,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(fileUpload());
 
+<<<<<<< HEAD
 // Quiz Page
+=======
+// Test Page
+>>>>>>> 6b01dd25e416fc78fd06b942f0ad9440adc1a4a3
 app.get('/', (req, res) => {
     res.render('quiz');
 });
 
 
+<<<<<<< HEAD
+=======
+// Quiz Page
+app.get('/quiz', (req, res) => {
+    res.render('quiz');
+});
+
+
+>>>>>>> 6b01dd25e416fc78fd06b942f0ad9440adc1a4a3
 app.post('/upload', (req, res) => {
     if (!req.files || !req.files['choose'])
         return res.status(400).send('No files were uploaded.');
